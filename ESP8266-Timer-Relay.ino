@@ -38,7 +38,7 @@ struct TimerDataStruct TimerData;
 int WiFiTimer;
 char factory_settings_stored [3];
 bool OneSecoundPassed;
-bool timerArray[1440];
+bool timerArray[1440] = {0};
 bool WifiEnabled;
 bool lastRelayStatus;
 
@@ -103,7 +103,7 @@ void setup() {
     {
       for(int j=0; j<=5; j++)
       {
-        if( i > TimerOn[j] && i < TimerOff[j])
+        if( i >= TimerOn[j] && i < TimerOff[j])
         {
           timerArray[i] = true;
         }
@@ -174,21 +174,15 @@ void loop() {
     int tempTime = (Current.Hour * 60) + Current.Minute;
     if(timerArray[tempTime])
     {
-      if(!lastRelayStatus)
-      {
       digitalWrite(relayOutput, HIGH);  // Turn the relay on
       Serial.println("relay on");
       lastRelayStatus = true;
-      }
     }
     else
     {
-      if(lastRelayStatus)
-        {
         digitalWrite(relayOutput, LOW);  // Turn the relay off
         Serial.println("relay off");
         lastRelayStatus = false;
-        }
     }  
    }
 
