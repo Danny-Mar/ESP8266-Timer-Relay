@@ -6,6 +6,16 @@ struct CurrentTime Present;
 bool outputStatus;
 
 
+
+const char FIELDSET[] PROGMEM  = "</fieldset><fieldset>";  
+
+const char TIMERS[] PROGMEM  = R"=====(
+                                          <input type="radio" name="{Tmr}State" value="D" {CON}> ON
+                                          <input type="radio" name="{Tmr}State" value="O" {COF}> OFF &nbsp &nbsp
+                                          <input type="text" name="{Tmr}OnValue" id="{Tmr}OnValue" value='{TON}' size=2 autofocus> until <input type="text" name="{Tmr}OffValue" id="{Tmr}OffValue" value='{TOF}' size=2 autofocus>
+                                          )=====";
+
+
 void start_server(){
     server.on ("/", handleRoot);
     server.on ("/set", handleSet);
@@ -81,126 +91,126 @@ void handleRoot()
   tempOffTime[6][0] = '\0';
 
   
-  if(TimerSettings.TimerOn[1]){
-    Timer1SetHTML = "<input type=\"radio\" name=\"Timer1State\" value=\"D\" checked> ON"
-                    "<input type=\"radio\" name=\"Timer1State\" value=\"O\"> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer1OnValue\" id=\"Timer1OnValue\" value='";
-    Timer1SetHTML += tempOnTime[1];
-	Timer1SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer1OffValue\" id=\"Timer1OffValue\" value='";
-    Timer1SetHTML += tempOffTime[1];
-    Timer1SetHTML += "' size=2 autofocus>";    
-                     
-  }else{
-    Timer1SetHTML = "<input type=\"radio\" name=\"Timer1State\" value=\"D\"> ON"
-                    "<input type=\"radio\" name=\"Timer1State\" value=\"O\" checked> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer1OnValue\" id=\"Timer1OnValue\" value='";
-    Timer1SetHTML += tempOnTime[1];
-	Timer1SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer1OffValue\" id=\"Timer1OffValue\" value='";
-    Timer1SetHTML += tempOffTime[1];
-    Timer1SetHTML += "' size=2 autofocus>";                           
+  if(TimerSettings.TimerOn[1])
+  {
+    Timer1SetHTML = FPSTR(TIMERS);
+    Timer1SetHTML.replace("{Tmr}", F("Timer1"));
+    Timer1SetHTML.replace("{CON}", F("checked"));
+    Timer1SetHTML.replace("{COF}", F(""));
+    Timer1SetHTML.replace("{TON}", tempOnTime[1]);
+    Timer1SetHTML.replace("{TOF}", tempOffTime[1]);
+  }
+  else
+  {
+    Timer1SetHTML = FPSTR(TIMERS);
+    Timer1SetHTML.replace("{Tmr}", F("Timer1"));
+    Timer1SetHTML.replace("{CON}", F(""));
+    Timer1SetHTML.replace("{COF}", F("checked"));
+    Timer1SetHTML.replace("{TON}", tempOnTime[1]);
+    Timer1SetHTML.replace("{TOF}", tempOffTime[1]);                         
   } 
   
-  if(TimerSettings.TimerOn[2]){
-    Timer2SetHTML = "<input type=\"radio\" name=\"Timer2State\" value=\"D\" checked> ON"
-                    "<input type=\"radio\" name=\"Timer2State\" value=\"O\"> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer2OnValue\" id=\"Timer2OnValue\" value='";
-    Timer2SetHTML += tempOnTime[2];
-	Timer2SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer2OffValue\" id=\"Timer2OffValue\" value='";
-    Timer2SetHTML += tempOffTime[2];
-    Timer2SetHTML += "' size=2 autofocus>";    
-                     
-  }else{
-    Timer2SetHTML = "<input type=\"radio\" name=\"Timer2State\" value=\"D\"> ON"
-                    "<input type=\"radio\" name=\"Timer2State\" value=\"O\" checked> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer2OnValue\" id=\"Timer2OnValue\" value='";
-    Timer2SetHTML += tempOnTime[2];
-	Timer2SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer2OffValue\" id=\"Timer2OffValue\" value='";
-    Timer2SetHTML += tempOffTime[2];
-    Timer2SetHTML += "' size=2 autofocus>";                         
-  } 
+  if(TimerSettings.TimerOn[2])
+  {
+    Timer2SetHTML = FPSTR(TIMERS);
+    Timer2SetHTML.replace("{Tmr}", F("Timer2"));
+    Timer2SetHTML.replace("{CON}", F("checked"));
+    Timer2SetHTML.replace("{COF}", F(""));
+    Timer2SetHTML.replace("{TON}", tempOnTime[2]);
+    Timer2SetHTML.replace("{TOF}", tempOffTime[2]);
+  }
+  else
+  {
+    Timer2SetHTML = FPSTR(TIMERS);
+    Timer2SetHTML.replace("{Tmr}", F("Timer2"));
+    Timer2SetHTML.replace("{CON}", F(""));
+    Timer2SetHTML.replace("{COF}", F("checked"));
+    Timer2SetHTML.replace("{TON}", tempOnTime[2]);
+    Timer2SetHTML.replace("{TOF}", tempOffTime[2]);                         
+  }
   
 
-  if(TimerSettings.TimerOn[3]){
-    Timer3SetHTML = "<input type=\"radio\" name=\"Timer3State\" value=\"D\" checked> ON"
-                    "<input type=\"radio\" name=\"Timer3State\" value=\"O\"> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer3OnValue\" id=\"Timer3OnValue\" value='";
-    Timer3SetHTML += tempOnTime[3];
-	Timer3SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer3OffValue\" id=\"Timer3OffValue\" value='";
-    Timer3SetHTML += tempOffTime[3];
-    Timer3SetHTML += "' size=2 autofocus>";    
-                     
-  }else{
-    Timer3SetHTML = "<input type=\"radio\" name=\"Timer3State\" value=\"D\"> ON"
-                    "<input type=\"radio\" name=\"Timer3State\" value=\"O\" checked> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer3OnValue\" id=\"Timer3OnValue\" value='";
-    Timer3SetHTML += tempOnTime[3];
-	Timer3SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer3OffValue\" id=\"Timer3OffValue\" value='";
-    Timer3SetHTML += tempOffTime[3];
-    Timer3SetHTML += "' size=2 autofocus>";                          
+  if(TimerSettings.TimerOn[3])
+  {
+    Timer3SetHTML = FPSTR(TIMERS);
+    Timer3SetHTML.replace("{Tmr}", F("Timer3"));
+    Timer3SetHTML.replace("{CON}", F("checked"));
+    Timer3SetHTML.replace("{COF}", F(""));
+    Timer3SetHTML.replace("{TON}", tempOnTime[3]);
+    Timer3SetHTML.replace("{TOF}", tempOffTime[3]);
   }
+  else
+  {
+    Timer3SetHTML = FPSTR(TIMERS);
+    Timer3SetHTML.replace("{Tmr}", F("Timer3"));
+    Timer3SetHTML.replace("{CON}", F(""));
+    Timer3SetHTML.replace("{COF}", F("checked"));
+    Timer3SetHTML.replace("{TON}", tempOnTime[3]);
+    Timer3SetHTML.replace("{TOF}", tempOffTime[3]);                         
+  } 
 
-  if(TimerSettings.TimerOn[4]){
-    Timer4SetHTML = "<input type=\"radio\" name=\"Timer4State\" value=\"D\" checked> ON"
-                    "<input type=\"radio\" name=\"Timer4State\" value=\"O\"> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer4OnValue\" id=\"Timer4OnValue\" value='";
-    Timer4SetHTML += tempOnTime[4];
-	Timer4SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer4OffValue\" id=\"Timer4OffValue\" value='";
-    Timer4SetHTML += tempOffTime[4];
-    Timer4SetHTML += "' size=2 autofocus>";    
-                     
-  }else{
-    Timer4SetHTML = "<input type=\"radio\" name=\"Timer4State\" value=\"D\"> ON"
-                    "<input type=\"radio\" name=\"Timer4State\" value=\"O\" checked> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer4OnValue\" id=\"Timer4OnValue\" value='";
-    Timer4SetHTML += tempOnTime[4];
-	Timer4SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer4OffValue\" id=\"Timer4OffValue\" value='";
-    Timer4SetHTML += tempOffTime[4];
-    Timer4SetHTML += "' size=2 autofocus>";                        
+  if(TimerSettings.TimerOn[4])
+  {
+    Timer4SetHTML = FPSTR(TIMERS);
+    Timer4SetHTML.replace("{Tmr}", F("Timer4"));
+    Timer4SetHTML.replace("{CON}", F("checked"));
+    Timer4SetHTML.replace("{COF}", F(""));
+    Timer4SetHTML.replace("{TON}", tempOnTime[4]);
+    Timer4SetHTML.replace("{TOF}", tempOffTime[4]);
   }
+  else
+  {
+    Timer4SetHTML = FPSTR(TIMERS);
+    Timer4SetHTML.replace("{Tmr}", F("Timer4"));
+    Timer4SetHTML.replace("{CON}", F(""));
+    Timer4SetHTML.replace("{COF}", F("checked"));
+    Timer4SetHTML.replace("{TON}", tempOnTime[4]);
+    Timer4SetHTML.replace("{TOF}", tempOffTime[4]);                         
+  } 
 
-  if(TimerSettings.TimerOn[5]){
-    Timer5SetHTML = "<input type=\"radio\" name=\"Timer5State\" value=\"D\" checked> ON"
-                    "<input type=\"radio\" name=\"Timer5State\" value=\"O\"> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer5OnValue\" id=\"Timer5OnValue\" value='";
-    Timer5SetHTML += tempOnTime[5];
-	Timer5SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer5OffValue\" id=\"Timer5OffValue\" value='";
-    Timer5SetHTML += tempOffTime[5];
-    Timer5SetHTML += "' size=2 autofocus>";    
-                     
-  }else{
-    Timer5SetHTML = "<input type=\"radio\" name=\"Timer5State\" value=\"D\"> ON"
-                    "<input type=\"radio\" name=\"Timer5State\" value=\"O\" checked> OFF &nbsp &nbsp"
-                    "<input type=\"text\" name=\"Timer5OnValue\" id=\"Timer5OnValue\" value='";
-    Timer5SetHTML += tempOnTime[5];
-	Timer5SetHTML += "' size=2 autofocus> until <input type=\"text\" name=\"Timer5OffValue\" id=\"Timer5OffValue\" value='";
-    Timer5SetHTML += tempOffTime[5];
-    Timer5SetHTML += "' size=2 autofocus>";                        
+  if(TimerSettings.TimerOn[5])
+    {
+    Timer5SetHTML = FPSTR(TIMERS);
+    Timer5SetHTML.replace("{Tmr}", F("Timer5"));
+    Timer5SetHTML.replace("{CON}", F("checked"));
+    Timer5SetHTML.replace("{COF}", F(""));
+    Timer5SetHTML.replace("{TON}", tempOnTime[5]);
+    Timer5SetHTML.replace("{TOF}", tempOffTime[5]);
   }
+  else
+  {
+    Timer5SetHTML = FPSTR(TIMERS);
+    Timer5SetHTML.replace("{Tmr}", F("Timer5"));
+    Timer5SetHTML.replace("{CON}", F(""));
+    Timer5SetHTML.replace("{COF}", F("checked"));
+    Timer5SetHTML.replace("{TON}", tempOnTime[5]);
+    Timer5SetHTML.replace("{TOF}", tempOffTime[5]);                     
+  } 
 
   if(TimerSettings.TimerOn[6]){
-    DayLtSaveSetHTML = "<input type=\"radio\" name=\"DayLtSaveState\" value=\"D\" checked> ON"
-                    "<input type=\"radio\" name=\"DayLtSaveState\" value=\"O\"> OFF";
+    DayLtSaveSetHTML = F("<input type=\"radio\" name=\"DayLtSaveState\" value=\"D\" checked> ON"
+                    "<input type=\"radio\" name=\"DayLtSaveState\" value=\"O\"> OFF");
  
                      
   }else{
-    DayLtSaveSetHTML = "<input type=\"radio\" name=\"DayLtSaveState\" value=\"D\"> ON"
-                    "<input type=\"radio\" name=\"DayLtSaveState\" value=\"O\" checked> OFF";
+    DayLtSaveSetHTML = F("<input type=\"radio\" name=\"DayLtSaveState\" value=\"D\"> ON"
+                    "<input type=\"radio\" name=\"DayLtSaveState\" value=\"O\" checked> OFF");
   }
   
 
 
 
-Page =  "<!DOCTYPE html>";
-Page += "<html lang=\"en\">";
-Page += "<head>";
-Page += "<TITLE>Relay Timer Server</TITLE>";
-Page += "<meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-Page += "</head>";
-Page += "<style> body { background-color: #fffff; font-family: Arial, Helvetica, Sans-Serif; Color: #000088; }</style>";
-Page += "<style> .button { background-color: #4CAF50; border: on; color: white; padding: 6px 25px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;}</style>";
-Page += "<body>";
-Page += "<h1>Daily Repeat Timer Relay</h1>";
-Page += "<h2>The time is ";
+Page =  F("<!DOCTYPE html>"
+          "<html lang=\"en\">"
+          "<head>"
+          "<TITLE>Relay Timer Server</TITLE>"
+          "<meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+          "</head>"
+          "<style> body { background-color: #fffff; font-family: Arial, Helvetica, Sans-Serif; Color: #000088; }</style>"
+          "<style> .button { background-color: #4CAF50; border: on; color: white; padding: 6px 25px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;}</style>"
+          "<body>"
+          "<h1>Daily Repeat Timer Relay</h1>"
+          "<h2>The time is ");
 char tempTime[6];
 if(Present.Minute<10 && Present.Second<10)
 {
@@ -221,56 +231,53 @@ else
 Page += Present.Hour;
 Page += ":";
 Page += tempTime;
-Page += " and the relay output is ";
+Page += F(" and the relay output is ");
 if(outputStatus)
 {
-  Page += "on</h2>";
+  Page += F("on</h2>");
 }
 else
 {
-  Page += "off</h2>";
+  Page += F("off</h2>");
 }
-Page += "<h3>Enter your timer on/off values in format (05:45)</h3>";
-Page += "<form id=\"Timerform\">";
-Page += "<fieldset>";
-Page += "<legend>Timer 1</legend>";
+Page += F("<h3>Enter your timer on/off values in format (05:45)</h3>"
+          "<h4>Do not create timers that pan over 2 days, for example [22:00]until[02:00]</h4>"
+          "<h4>Create 2 different timers, [22:00]until[24:00] and [00:00]until[02:00]</h4>"
+          "<form id=\"Timerform\">"
+          "<fieldset>"
+          "<legend>Timer 1</legend>");
 Page +=   Timer1SetHTML;
-Page += "</fieldset>";
-Page += "<fieldset>";
+Page += FPSTR(FIELDSET);
 Page += "<legend>Timer 2</legend>";
 Page +=   Timer2SetHTML;
-Page += "</fieldset>";
-Page += "<fieldset>";
+Page += FPSTR(FIELDSET);
 Page += "<legend>Timer 3</legend>";
 Page +=   Timer3SetHTML;
-Page += "</fieldset>";
-Page += "<fieldset>";
+Page += FPSTR(FIELDSET);
 Page += "<legend>Timer 4</legend>";
 Page +=   Timer4SetHTML;
-Page += "</fieldset>";
-Page += "<fieldset>";
+Page += FPSTR(FIELDSET);
 Page += "<legend>Timer 5</legend>";
 Page +=   Timer5SetHTML;
-Page += "</fieldset>";
-Page += "<fieldset>";
+Page += FPSTR(FIELDSET);
 Page += "<legend>Day Light Savings</legend>";
 Page +=   DayLtSaveSetHTML;
-Page += "</fieldset>";
-Page += "<form>";
-Page += "<fieldset>";
-Page += "<legend>Actions</legend>";
-Page += "<div>";
-Page += "<br>";
-Page += "<button id=\"set_button\" class=\"button\">Set</button>";
-Page += "</div>";
-Page += "</fieldset>";
-Page += "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script><script>";
-Page += "var Timer1State; var Timer1OnValue; var Timer1OffValue; var Timer2State; var Timer2OnValue; var Timer2OffValue; var Timer3State; var Timer3OnValue; var Timer3OffValue; var Timer4State; var Timer4OnValue; var Timer4OffValue; var Timer5State; var Timer5OnValue; var Timer5OffValue; $('#set_button').click(function(OnEvent){ OnEvent.preventDefault();";
-Page += "Timer1State = $('input[name=Timer1State]:checked', '#Timerform').val(); Timer1OnValue = $('#Timer1OnValue').val(); Timer1OffValue = $('#Timer1OffValue').val(); Timer2State = $('input[name=Timer2State]:checked', '#Timerform').val(); Timer2OnValue = $('#Timer2OnValue').val(); Timer2OffValue = $('#Timer2OffValue').val();  Timer3State = $('input[name=Timer3State]:checked', '#Timerform').val(); Timer3OnValue = $('#Timer3OnValue').val(); Timer3OffValue = $('#Timer3OffValue').val(); Timer4State = $('input[name=Timer4State]:checked', '#Timerform').val();  Timer4OnValue = $('#Timer4OnValue').val(); Timer4OffValue = $('#Timer4OffValue').val(); Timer5State = $('input[name=Timer5State]:checked', '#Timerform').val();  Timer5OnValue = $('#Timer5OnValue').val(); Timer5OffValue = $('#Timer5OffValue').val(); DayLtSaveState = $('input[name=DayLtSaveState]:checked', '#Timerform').val();";
-Page += "$.get('/set?Timer1State=' + Timer1State + '&Timer1OnValue=' + Timer1OnValue + '&Timer1OffValue=' + Timer1OffValue + '&Timer2State=' + Timer2State + '&Timer2OnValue=' + Timer2OnValue + '&Timer2OffValue=' + Timer2OffValue + '&Timer3State=' + Timer3State + '&Timer3OnValue=' + Timer3OnValue + '&Timer3OffValue=' + Timer3OffValue + '&Timer4State=' + Timer4State + '&Timer4OnValue=' + Timer4OnValue + '&Timer4OffValue=' + Timer4OffValue + '&Timer5State=' + Timer5State + '&Timer5OnValue=' + Timer5OnValue + '&Timer5OffValue=' + Timer5OffValue + '&DayLtSaveState=' + DayLtSaveState, function(TimerState){ console.log(TimerState); }); });";
-Page += "</script>";
-Page += "</body>";
-Page += "</html>";
+Page += F("</fieldset>"
+          "<form>"
+          "<fieldset>"
+          "<legend>Actions</legend>"
+          "<div>"
+          "<br>"
+          "<button id=\"set_button\" class=\"button\">Set</button>"
+          "</div>"
+          "</fieldset>"
+          "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script><script>"
+          "var Timer1State; var Timer1OnValue; var Timer1OffValue; var Timer2State; var Timer2OnValue; var Timer2OffValue; var Timer3State; var Timer3OnValue; var Timer3OffValue; var Timer4State; var Timer4OnValue; var Timer4OffValue; var Timer5State; var Timer5OnValue; var Timer5OffValue; $('#set_button').click(function(OnEvent){ OnEvent.preventDefault();"
+          "Timer1State = $('input[name=Timer1State]:checked', '#Timerform').val(); Timer1OnValue = $('#Timer1OnValue').val(); Timer1OffValue = $('#Timer1OffValue').val(); Timer2State = $('input[name=Timer2State]:checked', '#Timerform').val(); Timer2OnValue = $('#Timer2OnValue').val(); Timer2OffValue = $('#Timer2OffValue').val();  Timer3State = $('input[name=Timer3State]:checked', '#Timerform').val(); Timer3OnValue = $('#Timer3OnValue').val(); Timer3OffValue = $('#Timer3OffValue').val(); Timer4State = $('input[name=Timer4State]:checked', '#Timerform').val();  Timer4OnValue = $('#Timer4OnValue').val(); Timer4OffValue = $('#Timer4OffValue').val(); Timer5State = $('input[name=Timer5State]:checked', '#Timerform').val();  Timer5OnValue = $('#Timer5OnValue').val(); Timer5OffValue = $('#Timer5OffValue').val(); DayLtSaveState = $('input[name=DayLtSaveState]:checked', '#Timerform').val();"
+          "$.get('/set?Timer1State=' + Timer1State + '&Timer1OnValue=' + Timer1OnValue + '&Timer1OffValue=' + Timer1OffValue + '&Timer2State=' + Timer2State + '&Timer2OnValue=' + Timer2OnValue + '&Timer2OffValue=' + Timer2OffValue + '&Timer3State=' + Timer3State + '&Timer3OnValue=' + Timer3OnValue + '&Timer3OffValue=' + Timer3OffValue + '&Timer4State=' + Timer4State + '&Timer4OnValue=' + Timer4OnValue + '&Timer4OffValue=' + Timer4OffValue + '&Timer5State=' + Timer5State + '&Timer5OnValue=' + Timer5OnValue + '&Timer5OffValue=' + Timer5OffValue + '&DayLtSaveState=' + DayLtSaveState, function(TimerState){ console.log(TimerState); }); });"
+          "</script>"
+          "</body>"
+          "</html>");
 
    server.send ( 200, "text/html", Page);  
 }

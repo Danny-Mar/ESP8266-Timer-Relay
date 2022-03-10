@@ -86,7 +86,7 @@ void setup() {
     setup_time(timeZone + TimerData.TimerOn[6]);
     int TimerOn[5];
     int TimerOff[5];
-    for(int i=0; i<=5; i++)
+    for(int i=1; i<=5; i++)
     {
       if(TimerData.TimerOn[i])
       {
@@ -101,7 +101,7 @@ void setup() {
     }
     for(int i=0; i<=1440; i++)
     {
-      for(int j=0; j<=5; j++)
+      for(int j=1; j<=5; j++)
       {
         if( i >= TimerOn[j] && i < TimerOff[j])
         {
